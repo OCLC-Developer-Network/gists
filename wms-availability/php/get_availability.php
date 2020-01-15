@@ -8,11 +8,13 @@ use GuzzleHttp\Exception\RequestException;
 use League\OAuth2\Client\OptionProvider\HttpBasicAuthOptionProvider;
 use League\OAuth2\Client\Provider\GenericProvider;
 
+$config = Yaml::parse(file_get_contents('config.yml'));
+
 $setup_options = [
-    'clientId'                => $key,
-    'clientSecret'            => $secret,
-    'urlAuthorize'            => 'https://oauth.oclc.org/auth',
-    'urlAccessToken'          => 'https://oauth.oclc.org/token',
+    'clientId'                => $config['key'],
+    'clientSecret'            => $config['key'],
+    'urlAuthorize'            => $config['auth_url'],
+    'urlAccessToken'          => $config['token_url'],
     'urlResourceOwnerDetails' => ''
 ];
 $basicAuth_provider = new HttpBasicAuthOptionProvider();
