@@ -40,9 +40,19 @@ ccgAuthExample.python can be run from the command line using
 python ccgAuthExample.py
 ```
 
-authCodeAuthExample.py can be run by starting a web server
+Both
+
+- authCodeAuthExample.py - Login showing WAYF (Where are you from)
+- authCodeWithAuthInstExample.py - Login to a particular institution
+
+can be run by starting a web server
 
 ```bash
 env FLASK_APP=authCodeAuthExample.py flask run
 ```
+
+```bash
+env FLASK_APP=authCodeWithAuthInstExample.py flask run
+```
+
 Then opening http://localhost:5000 in a web browser
