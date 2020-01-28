@@ -34,7 +34,7 @@ string secret = "YOUR_SECRET";//TODO
 string scope="WMS_ACQ";
 
 //sd01 for public sandbox and the Americas, sd02 for EMEA
-string dataCenter = "sd01";
+string dataCenter = "sd01";//TODO
 
 // Add default Ballerina Truststore for TLS connections
 // If BALLERINA_HOME is not set in your environment replace ${ballerina.home} 
