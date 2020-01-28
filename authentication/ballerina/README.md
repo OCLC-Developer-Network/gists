@@ -1,6 +1,6 @@
 # getOrder.bal
 
-An Oauth2 authentication example using only the Open Source Ballerina.io integration language and no additional libraries or other external dependencies.
+An Oauth2 authentication example using only the open source Ballerina.io integration language and no additional libraries or other external dependencies.
  
 The code will consume purchaseOrder data from the WMS Acquisitions REST API
 and select elements from the XML - both with and without the  `purchaseOrder` namespace - using the Ballerina `xml` primitive data type.
