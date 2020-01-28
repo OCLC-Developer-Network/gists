@@ -1,4 +1,4 @@
-#getOrder.bal
+# getOrder.bal
 
 An Oauth2 authentication example using only the Open Source Ballerina.io integration language and no additional libraries or other external dependencies.
  
