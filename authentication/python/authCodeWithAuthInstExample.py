@@ -35,7 +35,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'SIJFhkdoufoerljdfjto'
  
 with open("../cross-inst_config.yml", 'r') as stream:
-    app.app_config = yaml.load(stream)
+    app.app_config = yaml.safe_load(stream)
      
 # get a token
 scope = ['WMS_NCIP', 'WMS_Availability', 'SCIM:read_self', 'context:128807', 'refresh_token']

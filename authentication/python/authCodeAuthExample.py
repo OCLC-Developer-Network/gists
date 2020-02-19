@@ -34,7 +34,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'SIJFhkdoufoerljdfjto'
  
 with open("../config.yml", 'r') as stream:
-    app.app_config = yaml.load(stream)
+    app.app_config = yaml.safe_load(stream)
      
 # get a token
 scope = ['WorldCatMetadataAPI']

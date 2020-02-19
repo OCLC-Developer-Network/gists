@@ -26,7 +26,7 @@ from requests_oauthlib import OAuth2Session
 import requests
  
 with open("../config.yml", 'r') as stream:
-    config = yaml.load(stream)
+    config = yaml.safe_load(stream)
      
 serviceURL = config.get('registry_service_url')   
 # get a token
