@@ -89,7 +89,7 @@ The system also sets the datePaid field:
 
 The datePaid field cannot be set by the API.
 
-**A new field called userPaidDate is now available so that you can set a paid date independent of the system-generated datePaid field.** If not specified, the userPaidDate field defaults to the current date. This is what happens when you use the /pay endpoint, which does not take a request body. In the above example, you would see:
+**A new, optional field called userPaidDate is now available to allow you to set a paid date independent of the system-generated datePaid field.** If not specified, the userPaidDate field defaults to the current date. This is what happens when you use the /pay endpoint, which does not take a request body. In the above example, you would see:
 
 ```xml
 <ns7:userPaidDate>2020-06-30</ns7:userPaidDate>
