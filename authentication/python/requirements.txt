@@ -10,5 +10,5 @@ oauthlib==3.1.0
 PyYAML==5.1.2
 requests==2.22.0
 requests-oauthlib==1.2.0
-urllib3==1.25.6
+urllib3==1.25.8
 Werkzeug==0.16.0
