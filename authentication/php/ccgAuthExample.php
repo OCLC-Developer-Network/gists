@@ -24,16 +24,23 @@ $provider = new GenericProvider($setup_options, ['optionProvider' => $basicAuth_
 try {
     
     // Try to get an access token using the client credentials grant.
-    $accessToken = $provider->getAccessToken('client_credentials', ['scope' => 'WorldCatMetadataAPI']);
+    $accessToken = $provider->getAccessToken('client_credentials', ['scope' => 'wcapi']);
     
-    $url = $config['metadata_service_url'] . "/bib/data/1";
+    $url = $config['discovery_service_url'] . "/bibs/1";
     $client = new Client();
     $headers = array();
     $headers['Authorization'] = "Bearer " . $accessToken->getToken();
     try {
         $response = $client->request('GET', $url, ['headers' => $headers]);
         $xml = $response->getBody();
-        print($xml);
+        //print($xml);
+        try {
+            $jsonO = json_decode($xml);
+            print($jsonO->identifier->oclcNumber);
+        } catch (Exception $decodeError){
+            print($decodeError);
+        }
+        
     } catch (RequestException $error) {
         print($error->getResponse()->getBody(true));
     }

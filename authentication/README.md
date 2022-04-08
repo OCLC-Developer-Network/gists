@@ -34,7 +34,7 @@ pip install -r requirements.txt
 ```
 
 ### Run the examples
-ccgAuthExample.python can be run from the command line using
+ccgAuthExample.py can be run from the command line using
 
 ```bash
 python ccgAuthExample.py
