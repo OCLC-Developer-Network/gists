@@ -65,7 +65,7 @@ def getToken():
 def getBib(): 
     try:
         oauth_session = app.config.get('oauth_session');
-        r = oauth_session.get(app.app_config.get('metadata_service_url') + "/bib/data/1", headers={"Accept":'application/atom+xml;content="application/vnd.oclc.marc21+xml"'})
+        r = oauth_session.get(app.app_config.get('metadata_service_url') + "/manage/bibs/1", headers={"Accept":"application/marc21+xml"})
         r.raise_for_status
         xml = r.content
         return xml

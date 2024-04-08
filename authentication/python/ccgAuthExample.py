@@ -38,7 +38,7 @@ wskey = OAuth2Session(client=client)
 try:
     token = wskey.fetch_token(token_url=config.get('token_url'), auth=auth) 
     try:
-        r = wskey.get(serviceURL + "/bib/data/1", headers={"Accept":'application/atom+xml;content="application/vnd.oclc.marc21+xml"'})
+        r = wskey.get(serviceURL + "/manage/bibs/1", headers={"Accept":"application/marc21+xml"})
         r.raise_for_status
         xml = r.content
         print(xml)

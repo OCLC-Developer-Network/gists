@@ -55,7 +55,7 @@ if (!isset($_GET['code'])) {
             'code' => $_GET['code']
         ]);
         
-        $url = $config['metadata_service_url'] . "/bib/data/1";
+        $url = $config['metadata_service_url'] . "/manage/bibs/1";
         $client = new Client();
         $headers = array();
         $headers['Authorization'] = "Bearer " . $accessToken->getToken();

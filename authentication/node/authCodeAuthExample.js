@@ -91,7 +91,7 @@ app.get('/', (req, res) => {
                 'User-Agent': 'node.js KAC client'
             }
         };
-    let url = config['service_url'] + '/bib/data/1';
+    let url = config['service_url'] + '/manage/bibs/1';
 	axios.get(url, config)
 	.then(results => {
 		console.log(results);

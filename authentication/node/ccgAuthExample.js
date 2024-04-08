@@ -56,7 +56,7 @@ async function getToken(){
 async function getResponse(){
 	try {
 		let token = await getToken();
-		let url = config['metadata_service_url'] + '/bib/data/1'
+		let url = config['metadata_service_url'] + '/manage/bibs/1'
 		let agent = new https.Agent({  
   		  rejectUnauthorized: false
   		});
