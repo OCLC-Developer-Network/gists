@@ -30,7 +30,7 @@ with open("../config.yml", 'r') as stream:
      
 serviceURL = config.get('metadata_service_url')   
 # get a token
-scope = ['WorldCatMetadataAPI']
+scope = ['WorldCatMetadataAPI:manage_bibs', 'WorldCatMetadataAPI:view_brief_bib']
 auth = HTTPBasicAuth(config.get('key'), config.get('secret'))
 client = BackendApplicationClient(client_id=config.get('key'), scope=scope)
 wskey = OAuth2Session(client=client)
