@@ -1,0 +1,5 @@
+key: MYKEY
+secret: MYSECRET
+auth_url: https://oauth.oclc.org/auth
+token_url: https://oauth.oclc.org/token
+new_titles_service_url: https://discovery.api.oclc.org/new-titles
