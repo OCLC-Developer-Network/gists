@@ -31,7 +31,7 @@ with open("../config.yml", 'r') as stream:
      
 serviceURL = config.get('discovery_service_url')   
 # get a token
-scope = ['wcapi']
+scope = ['wcapi:view_brief_bib']
 auth = HTTPBasicAuth(config.get('key'), config.get('secret'))
 client = BackendApplicationClient(client_id=config.get('key'), scope=scope)
 wskey = OAuth2Session(client=client)
