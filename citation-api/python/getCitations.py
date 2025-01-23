@@ -38,9 +38,9 @@ wskey = OAuth2Session(client=client)
 try:
     token = wskey.fetch_token(token_url=config.get('token_url'), auth=auth) 
     try:
-        oclcNumbers = ""
-        style = ""
-        r = wskey.get(serviceURL + "/citations?oclcNumers=" + oclcNumbers + "&style=" + style, headers={"Accept":"application/json"})
+        oclcNumbers = "4528132724,1,10"
+        style = "apa"
+        r = wskey.get(serviceURL + "/citations?oclcNumbers=" + oclcNumbers + "&style=" + style, headers={"Accept":"application/json"})
         r.raise_for_status()
         response = r.json()
         for citation in response.get('entries'):
