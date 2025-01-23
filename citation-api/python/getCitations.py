@@ -28,7 +28,7 @@ import requests
 with open("../config.yml", 'r') as stream:
     config = yaml.safe_load(stream)
      
-serviceURL = config.get('metadata_service_url')   
+serviceURL = config.get('citation_api_url')
 # get a token
 scope = ['DISCOVERY_Citations']
 auth = HTTPBasicAuth(config.get('key'), config.get('secret'))
