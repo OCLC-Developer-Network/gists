@@ -41,7 +41,7 @@ def searchMetadata(identifier, type):
         except requests.exceptions.HTTPError as err:
             results = ['failed']
     else:
-        raise ValueError('Invalid type value. Valid type values are' + ','.join(identifiers.keys))
+        raise ValueError('Invalid type value. Valid type values are' + ','.join(str(identifiers.keys)))
     return results
 
 def setHolding(oclcNumber):

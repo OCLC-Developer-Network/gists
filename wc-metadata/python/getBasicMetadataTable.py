@@ -51,7 +51,7 @@ def searchMetadata(identifier, type):
             metadata = None
             status = "failed"
     else:
-        raise ValueError('Invalid type value. Valid type values are' + ','.join(identifiers.keys))
+        raise ValueError('Invalid type value. Valid type values are' + ','.join(str(identifiers.keys)))
     return metadata
 
 
