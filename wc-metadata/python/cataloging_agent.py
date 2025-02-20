@@ -2,11 +2,13 @@ import yaml
 from oauthlib.oauth2 import BackendApplicationClient
 from requests.auth import HTTPBasicAuth
 from requests_oauthlib import OAuth2Session
+import json
+import requests
 
 with open("config.yml", 'r') as stream:
     config = yaml.safe_load(stream)
 
-scope = ['WorldCatMetadataAPI context:91475']
+scope = ['WorldCatMetadataAPI:manage_institution_holdings context:91475']
 oclcNumber = 1
 auth = HTTPBasicAuth(config.get('key'), config.get('secret'))
 client = BackendApplicationClient(client_id=config.get('key'), scope=scope)
@@ -24,4 +26,4 @@ try:
     except requests.exceptions.HTTPError as err:
         status = "failed"
 except BaseException as err:
-    return err
+    print(err)

@@ -10,7 +10,7 @@ from requests_oauthlib import OAuth2Session
 with open("config.yml", 'r') as stream:
     config = yaml.safe_load(stream)
 
-scope = ['WorldCatMetadataAPI']
+scope = ['WorldCatMetadataAPI:view_brief_bib', 'WorldCatMetadataAPI:manage_institution_holdings']
 
 auth = HTTPBasicAuth(config.get('key'), config.get('secret'))
 client = BackendApplicationClient(client_id=config.get('key'), scope=scope)

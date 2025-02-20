@@ -1,6 +1,6 @@
 import pandas as pd
 import json
-import urllib.parse
+import requests
 import yaml
 from oauthlib.oauth2 import BackendApplicationClient
 from requests.auth import HTTPBasicAuth
@@ -9,7 +9,7 @@ from requests_oauthlib import OAuth2Session
 with open("config.yml", 'r') as stream:
     config = yaml.safe_load(stream)
 
-scope = ['WorldCatMetadataAPI']
+scope = ['WorldCatMetadataAPI:view_brief_bib']
 
 auth = HTTPBasicAuth(config.get('key'), config.get('secret'))
 client = BackendApplicationClient(client_id=config.get('key'), scope=scope)
@@ -19,7 +19,7 @@ def getLatestEdition(oclcNumber):
     requestURL = "https://metadata.api.oclc.org/worldcat/search/brief-bibs/" + str(oclcNumber) + "/other-editions?inLanguage=eng&limit=1&orderBy=publicationDateDesc"
     try:
         r = oauth_session.get(requestURL, headers={"Accept":"application/json"})
-        r.raise_for_status
+        r.raise_for_status()
         try:
             result = r.json()
             if result.get('briefRecords'):
@@ -55,4 +55,4 @@ try:
     output_dir = "findLatestEdition-result.csv"
     csv_read.to_csv(output_dir, index=False)
 except BaseException as err:
-    return err
+    print(err)
