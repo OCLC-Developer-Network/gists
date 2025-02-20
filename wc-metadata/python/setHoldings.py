@@ -21,6 +21,14 @@ identifiers = {
     "issn": "in"
 }
 
+def setHoldingByIdentifier(identifier, type='oclcNumber'):
+    if type == 'oclcNumber':
+        result = setHolding(identifier)
+    else:
+        result = searchMetadata(identifier, type)
+
+    return pd.Series(result)
+
 def searchMetadata(identifier, type):
     if type in identifiers.keys():
         searchString = identifiers.get(type) + ':' + identifier
@@ -64,15 +72,15 @@ def setHolding(oclcNumber):
 
     return results
 
-item_file = "getHoldings.csv"
+item_file = "setHoldings.csv"
 file = open(item_file, "r")
 csv_read = pd.read_csv(file, index_col=False, encoding='utf-8', nrows=25000)
 
 try:
     token = oauth_session.fetch_token(token_url="https://oauth.oclc.org/token", auth=auth)
-    csv_read[['status', 'oclcNumber']] = csv_read.apply (lambda row: setHolding(row['oclcNumber']), axis=1)
+    csv_read[['status', 'oclcNumber']] = csv_read.apply (lambda row: setHoldingByIdentifier(row['oclcNumber']), axis=1)
 
-    output_dir = "getHoldings-result.csv"
+    output_dir = "setHoldings-result.csv"
     csv_read.to_csv(output_dir, index=False)
 except BaseException as err:
     print(err)
