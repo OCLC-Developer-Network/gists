@@ -44,7 +44,7 @@ try:
         r = wskey.get(serviceURL + "/brief-bibs?q=" + str(query) + "&groupRelatedEditions=true")
         r.raise_for_status()
         result = r.json()
-        for record in result.briefRecords:
+        for record in result.get('briefRecords'):
             print(record.get('title'))
             print(record.get('creator'))
             print(record.get('date') + ' ' + record.get('publisher') + ':' + record.get('publicationPlace'))
