@@ -1,0 +1,7 @@
+key:
+secret:
+host: https://oauth.oclc.org
+auth_url: https://oauth.oclc.org/auth
+token_url: https://oauth.oclc.org/token
+metadata_service_url: https://worldcat.org
+discovery_service_url: https://americas.discovery.api.oclc.org/worldcat/search/v2
