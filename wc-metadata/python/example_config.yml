@@ -1,0 +1,4 @@
+key: MYKEY
+secret: MYSECRET
+auth_url: https://oauth.oclc.org/auth
+token_url: https://oauth.oclc.org/token
