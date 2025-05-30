@@ -4,3 +4,6 @@
 /.pydevproject
 /dev_config.yml
 /cross-inst_config.yml
+/*/python/venv/
+*/config.yml
+/*/node/package.json
