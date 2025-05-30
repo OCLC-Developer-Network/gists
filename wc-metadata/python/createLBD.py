@@ -6,7 +6,7 @@ import requests
 from io import StringIO
 import time
 import pymarc
-from pymarc import Record, Field, Subfield
+from pymarc import Record, Field, Subfield, Indicators
 
 def getLDRFromBib(oclcNumber):
     ldr = ''
@@ -24,19 +24,19 @@ def createLBD(oclcNumber, ldr, note):
     record.add_field(Field(tag='004', data=oclcNumber))
     record.add_field(
         Field(
-            indicators = [' ', ' '],
+            indicators= Indicators(' ', ' '),
             tag = '500',
             subfields = [
                 Subfield(code='a', value= note)
             ]),
         Field(
-            indicators = [' ', ' '],
+            indicators= Indicators(' ', ' '),
             tag = '935',
             subfields = [
                 Subfield(code='a', value= str(time.time()))
             ]),
         Field(
-            indicators = [' ', ' '],
+            indicators= Indicators(' ', ' '),
             tag = '940',
             subfields = [
                 Subfield(code='a', value= config.get('oclcSymbol'))
@@ -65,6 +65,7 @@ try:
         r.raise_for_status()
         marcRecords = pymarc.parse_xml_to_array(StringIO(r.text))
         lbdNumber = marcRecords[0]['001'].value()
+        print(lbdNumber)
     except requests.exceptions.HTTPError as err:
         print (err)
 except BaseException as err:
