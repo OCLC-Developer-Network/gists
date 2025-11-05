@@ -1,4 +1,4 @@
-import yaml
+import os
 from oauthlib.oauth2 import BackendApplicationClient
 from requests.auth import HTTPBasicAuth
 from requests_oauthlib import OAuth2Session
@@ -7,6 +7,10 @@ from io import StringIO
 import time
 import pymarc
 from pymarc import Record, Field, Subfield, Indicators
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 def getLDRFromBib(oclcNumber):
     ldr = ''
@@ -39,25 +43,30 @@ def createLBD(oclcNumber, ldr, note):
             indicators= Indicators(' ', ' '),
             tag = '940',
             subfields = [
-                Subfield(code='a', value= config.get('oclcSymbol'))
+                Subfield(code='a', value= os.getenv('OCLC_SYMBOL', ''))
             ])
     )
     record = pymarc.record_to_xml(record).decode("utf-8")
     return record
 
-with open("config.yml", 'r') as stream:
-    config = yaml.safe_load(stream)
+# Load configuration from environment variables
+oclc_key = os.getenv('OCLC_KEY')
+oclc_secret = os.getenv('OCLC_SECRET')
+token_url = os.getenv('OCLC_TOKEN_URL', 'https://oauth.oclc.org/token')
+
+if not oclc_key or not oclc_secret:
+    raise ValueError("OCLC_KEY and OCLC_SECRET environment variables must be set. Please create a .env file with your API credentials.")
 
 scope = ['WorldCatMetadataAPI:manage_institution_lbds', 'WorldCatMetadataAPI:view_marc_bib']
 
-auth = HTTPBasicAuth(config.get('key'), config.get('secret'))
-client = BackendApplicationClient(client_id=config.get('key'), scope=scope)
+auth = HTTPBasicAuth(oclc_key, oclc_secret)
+client = BackendApplicationClient(client_id=oclc_key, scope=scope)
 oauth_session = OAuth2Session(client=client)
 
 oclcNumber = '42397965'
 note = 'This is a test note'
 try:
-    token = oauth_session.fetch_token(token_url=config.get('token_url'), auth=auth)
+    token = oauth_session.fetch_token(token_url=token_url, auth=auth)
     ldr = getLDRFromBib(oclcNumber)
     record = createLBD(oclcNumber, ldr, note)
     try:
