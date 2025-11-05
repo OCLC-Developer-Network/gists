@@ -136,7 +136,7 @@ def main():
     
     # Set up OAuth authentication
     # Scope needed for viewing LBDs
-    scope = ['WorldCatMetadataAPI:view_institution_lbds']
+    scope = ['WorldCatMetadataAPI:view_my_local_bib_data']
     
     auth = HTTPBasicAuth(oclc_key, oclc_secret)
     client = BackendApplicationClient(client_id=oclc_key, scope=scope)
@@ -177,13 +177,29 @@ def main():
     print(f"Processing {len(csv_read)} records...")
     
     # Fetch OAuth token
+    print(f"Attempting to obtain OAuth token from: {token_url}")
+    print(f"Using scope: {scope}")
     try:
         token = oauth_session.fetch_token(
             token_url=token_url,
             auth=auth
         )
+        print("Successfully obtained OAuth token")
+        if token:
+            print(f"Token type: {token.get('token_type', 'N/A')}")
+            print(f"Token expires in: {token.get('expires_in', 'N/A')} seconds")
+    except requests.exceptions.HTTPError as e:
+        print(f"HTTP Error obtaining OAuth token: {e}")
+        if hasattr(e.response, 'text'):
+            print(f"Response body: {e.response.text}")
+        if hasattr(e.response, 'status_code'):
+            print(f"Status code: {e.response.status_code}")
+        sys.exit(1)
     except Exception as e:
         print(f"Error obtaining OAuth token: {e}")
+        print(f"Error type: {type(e).__name__}")
+        if hasattr(e, 'response') and hasattr(e.response, 'text'):
+            print(f"Response body: {e.response.text}")
         sys.exit(1)
     
     # Process each OCLC number and look up LBD control number
