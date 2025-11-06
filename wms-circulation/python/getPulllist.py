@@ -19,26 +19,36 @@
 
 # Example of retrieving a token with Client Credentials Grant and https://github.com/requests/requests-oauthlib
 
-import yaml
+import os
+from dotenv import load_dotenv
 from oauthlib.oauth2 import BackendApplicationClient
 from requests.auth import HTTPBasicAuth
 from requests_oauthlib import OAuth2Session
 import requests
- 
-with open("../config.yml", 'r') as stream:
-    config = yaml.safe_load(stream)
-     
-serviceURL = config.get('circ_service_url')   
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Get configuration from environment variables
+serviceURL = os.getenv('CIRC_SERVICE_URL', 'https://circ.sd00.worldcat.org/circ')
+token_url = os.getenv('OCLC_TOKEN_URL', 'https://oauth.oclc.org/token')
+oclc_key = os.getenv('OCLC_KEY')
+oclc_secret = os.getenv('OCLC_SECRET')
+registry_id = os.getenv('OCLC_REGISTRY_ID', '129479')
+
+if not oclc_key or not oclc_secret:
+    raise ValueError("OCLC_KEY and OCLC_SECRET environment variables must be set")
+
 # get a token
 scope = ['WMS_CIRCULATION']
-auth = HTTPBasicAuth(config.get('key'), config.get('secret'))
-client = BackendApplicationClient(client_id=config.get('key'), scope=scope)
+auth = HTTPBasicAuth(oclc_key, oclc_secret)
+client = BackendApplicationClient(client_id=oclc_key, scope=scope)
 wskey = OAuth2Session(client=client)
 
 try:
-    token = wskey.fetch_token(token_url=config.get('token_url'), auth=auth) 
+    token = wskey.fetch_token(token_url=token_url, auth=auth) 
     try:
-        r = wskey.get(serviceURL + "/pulllist/129479", headers={"Accept":"application/json"})
+        r = wskey.get(serviceURL + f"/pulllist/{registry_id}", headers={"Accept":"application/json"})
         r.raise_for_status
         result = r.json()
         print(result)
